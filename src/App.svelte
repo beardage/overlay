@@ -1,18 +1,48 @@
 <script>
+    import Task from './tasklist/Task.svelte';
+    import SubTask from './tasklist/SubTask.svelte';
     let newItem = '';
     let newSubTask = '';
 
     let taskList = [
-        {id: 1, content: 'test item', status: false},
-        {id: 2, content: 'test item #2', status: false},
-    ];
-
-    let subTaskList = [
-        {id: 1, content: 'test subtask', status: false},
+        {
+            id: 1, 
+            content: 'test item', 
+            status: false, 
+            subTasks: [
+                {
+                    id: 1,
+                    content: 'test subtask',
+                    status: false
+                },
+                {
+                    id: 2,
+                    content: 'test subtask 2',
+                    status: false
+                },
+            ] 
+        },
+        {
+            id: 2, 
+            content: 'test item 2', 
+            status: false, 
+            subTasks: [
+                {
+                    id: 1,
+                    content: 'test subtask again',
+                    status: false
+                },
+                {
+                    id: 2,
+                    content: 'test subtask again 2',
+                    status: false
+                },
+            ] 
+        },
     ];
     
     function addToList() {
-        taskList = [...taskList, {id: generateId(), content: taskTitle, status: false}];
+        taskList = [...taskList, {id: generateId(), content: newItem, status: false, subTasks: []}];
         newItem = '';
     }
 
@@ -33,25 +63,9 @@
 
 <hr>
 
-{#each taskList as item, index}
+{#each taskList as task, index}
     <div class="task-container">
-        <Task class="task">
-            <input bind:checked={item.status} type="checkbox">
-            <span class:checked={item.status}>{item.content}</span>
-            <button on:click={addSubTask}>+</button>
-        </Task>
-        <div class="sub-tasks">
-            {#each subTaskList as item (item.id), index}
-                <subTask class="sub-task">
-                    <input bind:checked={item.status} type="checkbox">
-                    <span class:checked={item.status}>{item.content}</span>
-                </subTask>   
-                {#if index == subTaskList.length-1}
-                    <input bind:value={newSubTask} type="text" placeholder="new subtask">
-                    <button on:click={addSubTask}>+</button>
-                {/if}
-            {/each}
-        </div>
+        <Task task={task} subtasks={task.subtasks}/>
     </div>
 {/each}
 
