@@ -1,6 +1,5 @@
 <script>
     import Task from './tasklist/Task.svelte';
-    import SubTask from './tasklist/SubTask.svelte';
     let newItem = '';
     let newSubTask = '';
     let subTaskList = [];
