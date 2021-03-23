@@ -3,6 +3,7 @@
     import SubTask from './tasklist/SubTask.svelte';
     let newItem = '';
     let newSubTask = '';
+    let subTaskList = [];
 
     let taskList = [
         {
@@ -40,6 +41,7 @@
             ] 
         },
     ];
+
     
     function addToList() {
         taskList = [...taskList, {id: generateId(), content: newItem, status: false, subTasks: []}];
@@ -49,6 +51,10 @@
     function addSubTask() {
         subTaskList = [...subTaskList, {id:generateId(), content: newSubTask, status: false}];
         newSubTask = '';
+    }
+    
+    function handleAddSubTask(event) {
+        addSubTask();
     }
     
     function generateId() {
@@ -65,7 +71,7 @@
 
 {#each taskList as task, index}
     <div class="task-container">
-        <Task task={task} subtasks={task.subtasks}/>
+        <Task {task} on:addSubTask={handleAddSubTask}/>
     </div>
 {/each}
 
