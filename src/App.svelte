@@ -9,6 +9,7 @@
             id: 1, 
             content: 'test item', 
             status: false, 
+            editing: false,
             subTasks: [
                 {
                     id: 1,
@@ -27,7 +28,8 @@
         {
             id: 2, 
             content: 'test item 2', 
-            status: false, 
+            status: false,
+            editing: false,
             subTasks: [
                 {
                     id: 1,
@@ -47,7 +49,7 @@
 
     
     function addToList() {
-        taskList = [...taskList, {id: generateId(), content: newItem, status: false, subTasks: []}];
+        taskList = [...taskList, {id: generateId(), content: newItem, status: false, editing: false, subTasks: []}];
         newItem = '';
     }
 
@@ -87,7 +89,6 @@
 {#each taskList as task, index}
     <div class="task-container">
         <Task {task} on:addSubTask={handleAddSubTask} on:editTask={handleEditTask}/>
-
     </div>
 {/each}
 
