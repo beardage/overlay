@@ -6,7 +6,7 @@
     export let subtasks;
     
     function addSubTask() {
-        dispatch('addSubTask', true);
+        dispatch('addSubTask', task);
     }
  </script>
  
@@ -19,6 +19,9 @@
         {#each task.subTasks as subTask, index}
             <div class="sub-task">
                 <input bind:checked={subTask.status} type="checkbox">
+                {#if subTask.editing}
+                    <input bind:value={subTask.content} placeholder="edit subtask">
+                {/if}
                 <span class:checked={subTask.status}>{subTask.content}</span>
             </div>
         {/each}

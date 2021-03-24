@@ -13,12 +13,14 @@
                 {
                     id: 1,
                     content: 'test subtask',
-                    status: false
+                    status: false,
+                    editing: false
                 },
                 {
                     id: 2,
                     content: 'test subtask 2',
-                    status: false
+                    status: false,
+                    editing: false
                 },
             ] 
         },
@@ -30,12 +32,14 @@
                 {
                     id: 1,
                     content: 'test subtask again',
-                    status: false
+                    status: false,
+                    editing: false
                 },
                 {
                     id: 2,
                     content: 'test subtask again 2',
-                    status: false
+                    status: false,
+                    editing: false
                 },
             ] 
         },
@@ -47,13 +51,14 @@
         newItem = '';
     }
 
-    function addSubTask() {
-        subTaskList = [...subTaskList, {id:generateId(), content: newSubTask, status: false}];
-        newSubTask = '';
+    function addSubTask(task) {
+        task.subTasks.push({id:generateId(), content: newSubTask, status: false, editing: true});
+        taskList[task.id] = task;
+        console.log(task);
     }
     
     function handleAddSubTask(event) {
-        addSubTask();
+        addSubTask(event.detail);
     }
     
     function generateId() {
