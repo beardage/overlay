@@ -53,12 +53,23 @@
 
     function addSubTask(task) {
         task.subTasks.push({id:generateId(), content: newSubTask, status: false, editing: true});
-        taskList[task.id] = task;
-        console.log(task);
+        let index = taskList.findIndex((taskToUpdate) =>
+            taskToUpdate.id === task.id);
+        taskList[index] = task;
+    }
+    
+    function editTask(task) {
+        let index = taskList.findIndex((taskToUpdate) =>
+            taskToUpdate.id === task.id);
+        taskList[index] = task;
     }
     
     function handleAddSubTask(event) {
         addSubTask(event.detail);
+    }
+    
+    function handleEditTask(event) {
+        editTask(event.detail);
     }
     
     function generateId() {
@@ -75,7 +86,8 @@
 
 {#each taskList as task, index}
     <div class="task-container">
-        <Task {task} on:addSubTask={handleAddSubTask}/>
+        <Task {task} on:addSubTask={handleAddSubTask} on:editTask={handleEditTask}/>
+
     </div>
 {/each}
 
