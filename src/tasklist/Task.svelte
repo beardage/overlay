@@ -15,6 +15,14 @@
     function emitRemoveTask() {
         dispatch('removeTask', task);
     }
+    
+    function emitRemoveSubTask(subTaskId) {
+        dispatch('removeSubTask', {
+            task: task,
+            subTaskId: subTaskId,
+        });
+    }
+
  </script>
  
 
@@ -30,7 +38,7 @@
         <button on:click={emitRemoveTask}>remove</button>
     {/if}
     <div class="sub-tasks">
-        {#each task.subTasks as subTask, index}
+        {#each task.subTasks as subTask, index (subTask.id)}
             <div class="sub-task">
                 <input bind:checked={subTask.status} type="checkbox">
                 {#if subTask.editing}
@@ -39,6 +47,7 @@
                 {:else}
                     <span class:checked={subTask.status}>{subTask.content}</span>
                     <button class="edit" on:click={()=>{subTask.editing = true;}}>edit</button>
+                    <button on:click={emitRemoveSubTask(index)}>remove</button>
                 {/if}
             </div>
         {/each}

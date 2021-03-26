@@ -5,7 +5,7 @@
 
     let taskList = [
         {
-            id: 1, 
+            id: generateId(), 
             content: 'test item', 
             status: false, 
             editing: false,
@@ -25,7 +25,7 @@
             ] 
         },
         {
-            id: 2, 
+            id: generateId(), 
             content: 'test item 2', 
             status: false,
             editing: false,
@@ -58,14 +58,19 @@
             taskToUpdate.id === task.id);
         taskList[index] = task;
     }
+
+    function removeSubTask(task, subTaskId) {
+        let taskIndex = taskList.findIndex((taskToAlter) =>
+            taskToAlter.id === task.id);
+        let subTaskIndex = taskList[taskIndex].subTasks.findIndex((subTaskToRemove) =>
+            subTaskToRemove.id === subTaskId);
+        taskList[taskIndex].subTasks.splice(subTaskIndex, 1);
+        taskList = taskList;
+    }
     
     function removeTask(task) {
-        console.log(task);
-        console.log(taskList);
         let index = taskList.findIndex((taskToRemove) =>
             taskToRemove.id === task.id);
-        console.log(taskList);
-        console.log(index);
         taskList.splice(index, 1);
         taskList = taskList;
     }
@@ -88,8 +93,12 @@
         removeTask(event.detail); 
     }
     
+    function handleRemoveSubTask(event) {
+        removeSubTask(event.detail.task, event.detail.subTaskId);
+    }
+    
     function generateId() {
-        return Date.now();
+        return Date.now() + (Math.random() * 1000);
     }
     
     
@@ -100,9 +109,9 @@
 
 <hr>
 
-{#each taskList as task}
+{#each taskList as task, index (task.id)}
     <div class="task-container">
-        <Task {task} on:addSubTask={handleAddSubTask} on:editTask={handleEditTask} on:removeTask={handleRemoveTask}/>
+        <Task {task} on:addSubTask={handleAddSubTask} on:editTask={handleEditTask} on:removeTask={handleRemoveTask} on:removeSubTask={handleRemoveSubTask}/>
     </div>
 {/each}
 
