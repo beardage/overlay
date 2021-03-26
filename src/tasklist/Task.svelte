@@ -37,30 +37,41 @@
         <button on:click={emitAddSubTask}>add</button>
         <button on:click={emitRemoveTask}>remove</button>
     {/if}
-    <div class="sub-tasks">
-        {#each task.subTasks as subTask, index (subTask.id)}
-            <div class="sub-task">
-                <input bind:checked={subTask.status} type="checkbox">
-                {#if subTask.editing}
-                    <input name="new-subtask" bind:value={subTask.content} placeholder="edit subtask">
-                    <button on:click={()=>{subTask.editing = false; emitEditTask(task);}}>✓</button>
-                {:else}
-                    <span class:checked={subTask.status}>{subTask.content}</span>
-                    <button class="edit" on:click={()=>{subTask.editing = true;}}>edit</button>
-                    <button on:click={emitRemoveSubTask(index)}>remove</button>
-                {/if}
-            </div>
-        {/each}
-    </div>
-</div>      
+</div>
+<div class="sub-tasks">
+    {#each task.subTasks as subTask, index (subTask.id)}
+        <div class="sub-task">
+            <input bind:checked={subTask.status} type="checkbox">
+            {#if subTask.editing}
+                <input name="new-subtask" bind:value={subTask.content} placeholder="edit subtask">
+                <button on:click={()=>{subTask.editing = false; emitEditTask(task);}}>✓</button>
+            {:else}
+                <span class:checked={subTask.status}>{subTask.content}</span>
+                <button class="edit" on:click={()=>{subTask.editing = true;}}>edit</button>
+                <button on:click={emitRemoveSubTask(index)}>remove</button>
+            {/if}
+        </div>
+    {/each}
+</div>
 
 <style>
-.checked { color: green; }
-.sub-task {
-    color: #4e4e4e;
-    padding-left: 15px;
+.task {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    padding: 5px;
+    margin-bottom: 10px;
 }
-.task button {
+.sub-task {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    font-size: .8em;
+    padding: 5px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+.task button, .sub-task button {
     background: none;
     border: 0;
     cursor: pointer;
@@ -68,11 +79,11 @@
     padding: 0 0 0 10px;
     margin: 0;
 }
-.task:hover button {
+.task:hover button, .sub-task:hover button {
     color: darkseagreen;
     display: inline;
 }
-.task:hover button:hover {
+.task:hover button:hover, .sub-task:hover button {
     color: darkgreen;
 }
 </style>
