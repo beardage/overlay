@@ -3,15 +3,17 @@
 
     const dispatch = createEventDispatcher();
     export let task;
-    export let subtasks;
     
     function emitAddSubTask() {
         dispatch('addSubTask', task);
     }
     
     function emitEditTask(task) {
-        console.log(task);
         dispatch('editTask', task);
+    }
+    
+    function emitRemoveTask() {
+        dispatch('removeTask', task);
     }
  </script>
  
@@ -25,6 +27,7 @@
         <span class:checked={task.status}>{task.content}</span>
         <button class="edit" on:click={()=>{task.editing = true;}}>edit</button>
         <button on:click={emitAddSubTask}>add</button>
+        <button on:click={emitRemoveTask}>remove</button>
     {/if}
     <div class="sub-tasks">
         {#each task.subTasks as subTask, index}

@@ -2,7 +2,6 @@
     import Task from './tasklist/Task.svelte';
     let newItem = '';
     let newSubTask = '';
-    let subTaskList = [];
 
     let taskList = [
         {
@@ -60,7 +59,18 @@
         taskList[index] = task;
     }
     
-    function editTask(task) {
+    function removeTask(task) {
+        console.log(task);
+        console.log(taskList);
+        let index = taskList.findIndex((taskToRemove) =>
+            taskToRemove.id === task.id);
+        console.log(taskList);
+        console.log(index);
+        taskList.splice(index, 1);
+        taskList = taskList;
+    }
+    
+    function updateTask(task) {
         let index = taskList.findIndex((taskToUpdate) =>
             taskToUpdate.id === task.id);
         taskList[index] = task;
@@ -71,7 +81,11 @@
     }
     
     function handleEditTask(event) {
-        editTask(event.detail);
+        updateTask(event.detail);
+    }
+
+    function handleRemoveTask(event) {
+        removeTask(event.detail); 
     }
     
     function generateId() {
@@ -86,17 +100,9 @@
 
 <hr>
 
-{#each taskList as task, index}
+{#each taskList as task}
     <div class="task-container">
-        <Task {task} on:addSubTask={handleAddSubTask} on:editTask={handleEditTask}/>
+        <Task {task} on:addSubTask={handleAddSubTask} on:editTask={handleEditTask} on:removeTask={handleRemoveTask}/>
     </div>
 {/each}
 
-<style>
-    .checked { color: green }
-    .sub-tasks { 
-        color: #666;
-        padding-left: 15px;
-
-    }
-</style>
