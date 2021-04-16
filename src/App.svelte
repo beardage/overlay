@@ -1,5 +1,5 @@
 <script>
-    import Task from './tasklist/Task.svelte';
+    import TaskList from './tasklist/TaskList';
     let newItem = '';
     let newSubTask = '';
 
@@ -107,20 +107,4 @@
 <input bind:value={newItem} type="text" placeholder="new task">
 <button on:click={addToList}>Add</button>
 
-
-<div class="task-list">
-{#each taskList as task, index (task.id)}
-    <div class="task-container">
-        <Task {task} on:addSubTask={handleAddSubTask} on:editTask={handleEditTask} on:removeTask={handleRemoveTask} on:removeSubTask={handleRemoveSubTask}/>
-    </div>
-{/each}
-</div>
-
-<style>
-.task-list {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    max-width: 375px;
-}
-</style>
+<TaskList/>
