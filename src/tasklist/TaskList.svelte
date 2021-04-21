@@ -1,60 +1,66 @@
 <script>
    import { createEventDispatcher } from 'svelte';
    import { onMount } from 'svelte';
-   import Task from './tasklist/Task.svelte';
+   import Task from './Task.svelte';
    
    const dispatch = createEventDispatcher();
-   let taskList;
    let newItem = '';
+   export let taskList = [];
+
+   onMount(async () => {
+		const res = await fetch(`http://localhost:3000/todos`);
+		taskList = await res.json();
+         console.log(taskList);
+	});
 
    function addToList() {
-      taskList = [...taskList, {id: generateId(), content: newItem, status: false, editing: false, subTasks: []}];
-      newItem = '';   
+      //taskList = [...taskList, {id: generateId(), content: newItem, status: false, editing: false, subTasks: []}];
+      //newItem = '';   
    }
 
    function addSubTask(task) {
-      task.subTasks.push({id:generateId(), content: newSubTask, status: false, editing: true});
-      let index = taskList.findIndex((taskToUpdate) =>
-         taskToUpdate.id === task.id);
-      taskList[index] = task;
+      //task.subTasks.push({id:generateId(), content: newSubTask, status: false, editing: true});
+      //let index = taskList.findIndex((taskToUpdate) =>
+         //taskToUpdate.id === task.id);
+      //taskList[index] = task;
    }
   
    function removeSubTask(task, subTaskId) {
-      let taskIndex = taskList.findIndex((taskToAlter) =>
-            taskToAlter.id === task.id);  
-      let subTaskIndex = taskList[taskIndex].subTasks.findIndex((subTaskToRemove) =>
-         subTaskToRemove.id === subTaskId);
-      taskList[taskIndex].subTasks.splice(subTaskIndex, 1);
-      taskList = taskList;
+      //let taskIndex = taskList.findIndex((taskToAlter) =>
+            //taskToAlter.id === task.id);  
+      //let subTaskIndex = taskList[taskIndex].subTasks.findIndex((subTaskToRemove) =>
+         //subTaskToRemove.id === subTaskId);
+      //taskList[taskIndex].subTasks.splice(subTaskIndex, 1);
+      //taskList = taskList;
    }
      
    function removeTask(task) {                                                                                                         
-      let index = taskList.findIndex((taskToRemove) =>
-         taskToRemove.id === task.id);
-      taskList.splice(index, 1);
-      taskList = taskList;
+      //let index = taskList.findIndex((taskToRemove) =>
+         //taskToRemove.id === task.id);
+      //taskList.splice(index, 1);
+      //taskList = taskList;
    }
        
    function updateTask(task) {
-      let index = taskList.findIndex((taskToUpdate) =>
-         taskToUpdate.id === task.id);
-      taskList[index] = task;
+      //let index = taskList.findIndex((taskToUpdate) =>
+        // taskToUpdate.id === task.id);
+      //taskList[index] = task;
    }
       
    function handleAddSubTask(event) {
-      addSubTask(event.detail);
+      //addSubTask(event.detail);
    }
       
    function handleEditTask(event) {
-      updateTask(event.detail);
+      //updateTask(event.detail);
    }
   
    function handleRemoveTask(event) {
-      removeTask(event.detail); 
+      //removeTask(event.detail); 
    }
       
    function handleRemoveSubTask(event) {
-      removeSubTask(event.detail.task, event.detail.subTaskId);
+     // removeSubTask(event.detail.task, event.detail.subTaskId);
    }
       
    function generateId() {
@@ -68,6 +74,8 @@
       <div class="task-container">
          <Task {task} on:addSubTask={handleAddSubTask} on:editTask={handleEditTask} on:removeTask={handleRemoveTask} on:removeSubTask={handleRemoveSubTask}/>
       </div>
+   {:else}
+      <p>loading</p>
    {/each}
 </div>
 

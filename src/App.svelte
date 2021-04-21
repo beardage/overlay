@@ -1,52 +1,9 @@
 <script>
-    import TaskList from './tasklist/TaskList';
+    import TaskList from './tasklist/TaskList.svelte';
     let newItem = '';
     let newSubTask = '';
 
-    let taskList = [
-        {
-            id: generateId(), 
-            content: 'test item', 
-            status: false, 
-            editing: false,
-            subTasks: [
-                {
-                    id: 1,
-                    content: 'test subtask',
-                    status: false,
-                    editing: false
-                },
-                {
-                    id: 2,
-                    content: 'test subtask 2',
-                    status: false,
-                    editing: false
-                },
-            ] 
-        },
-        {
-            id: generateId(), 
-            content: 'test item 2', 
-            status: false,
-            editing: false,
-            subTasks: [
-                {
-                    id: 1,
-                    content: 'test subtask again',
-                    status: false,
-                    editing: false
-                },
-                {
-                    id: 2,
-                    content: 'test subtask again 2',
-                    status: false,
-                    editing: false
-                },
-            ] 
-        },
-    ];
-
-    
+     
     function addToList() {
         taskList = [...taskList, {id: generateId(), content: newItem, status: false, editing: false, subTasks: []}];
         newItem = '';
