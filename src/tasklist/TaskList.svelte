@@ -5,13 +5,15 @@
    
    const dispatch = createEventDispatcher();
    let newItem = '';
-   export let taskList = [];
+   $: taskList = [];
 
    onMount(async () => {
-		const res = await fetch(`http://localhost:3000/todos`);
-		taskList = await res.json();
-         console.log(taskList);
-	});
+      const interval = setInterval(async () => {
+         const res = await fetch(`http://localhost:3000/todos`);
+         taskList = await res.json();      
+      }, 2000);
+      return () => clearInterval(interval);
+   });
 
    function addToList() {
       //taskList = [...taskList, {id: generateId(), content: newItem, status: false, editing: false, subTasks: []}];
