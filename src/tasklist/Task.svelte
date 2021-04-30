@@ -20,7 +20,7 @@
 <style>
 .task {
     background-color: #6272a4;
-    border-radius: 3px;
+    border-radius: 2px;
     border: 4px solid #8be9fd;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     color: #f8f8f8;
@@ -29,7 +29,8 @@
 }
 .sub-task {
     background-color: #6272a4;
-    border-radius: 3px;
+    border-radius: 2px;
+    border: 4px solid #8be9fd;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     color: #f8f8f8;
     font-size: .8em;
