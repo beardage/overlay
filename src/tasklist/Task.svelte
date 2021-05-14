@@ -8,14 +8,6 @@
     <input bind:checked={task.status} type="checkbox">
     <span class:checked={task.status}>{task.content}</span>
 </div>
-<div class="sub-tasks">
-    {#each task.subTasks as subTask, index (subTask.id)}
-        <div class="sub-task">
-            <input bind:checked={subTask.status} type="checkbox">
-            <span class:checked={subTask.status}>{subTask.content}</span>
-        </div>
-    {/each}
-</div>
 
 <style>
 .task {
