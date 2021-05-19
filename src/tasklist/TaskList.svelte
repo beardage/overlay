@@ -33,4 +33,7 @@
       right: 10px;
       max-width: 375px;
    }
+   p {
+      color: white;
+   }
 </style>
